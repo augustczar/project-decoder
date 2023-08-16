@@ -15,10 +15,14 @@ import javax.persistence.Table;
 
 import com.ead.authuser.enums.UserStatus;
 import com.ead.authuser.enums.UserType;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "TB_USERS")
 public class UserModel implements Serializable {
@@ -36,6 +40,7 @@ public class UserModel implements Serializable {
 	private String email;
 	
 	@Column(nullable = false, length = 255)
+	@JsonIgnore
 	private String password;
 	
 	@Column(nullable = false, length = 150)
@@ -57,9 +62,11 @@ public class UserModel implements Serializable {
 	private String imageUrl;
 	
 	@Column(nullable = false)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
 	private LocalDateTime creationDate;
 	
 	@Column(nullable = false)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
 	private LocalDateTime lastUpdateDate;
 	
 }
