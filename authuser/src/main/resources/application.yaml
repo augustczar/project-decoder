@@ -11,7 +11,7 @@ spring:
       ddl-auto: update
       dialect: org.hobernate.dialect.PostgreSQLDialect
       jdbc: 
-      lob.non-contextual-creation: true
+        lob.non-contextual-creation: true
   properties:
     hibernate:
       show_sql: true
