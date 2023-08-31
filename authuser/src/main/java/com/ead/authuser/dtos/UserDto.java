@@ -1,6 +1,5 @@
 package com.ead.authuser.dtos;
 
-import java.util.Objects;
 import java.util.UUID;
 
 import javax.validation.constraints.Email;
