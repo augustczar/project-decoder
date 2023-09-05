@@ -8,11 +8,13 @@ spring:
     username: admin
     password: PO_postgres
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: update
       dialect: org.hobernate.dialect.PostgreSQLDialect
-      jdbc: 
+    jdbc: 
         lob.non-contextual-creation: true
-  properties:
-    hibernate:
-      show_sql: true
+        type:
+          descriptor:
+            sql:trace
+      
