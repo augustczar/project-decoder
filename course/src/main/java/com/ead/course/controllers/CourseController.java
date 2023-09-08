@@ -27,8 +27,8 @@ import com.ead.course.models.CourseModel;
 import com.ead.course.services.CourseService;
 
 @RestController
-@RequestMapping("/course")
 @CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/course")
 public class CourseController {
 
 	@Autowired
@@ -41,7 +41,7 @@ public class CourseController {
 		courseModel.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
 		courseModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));	
 		courseService.save(courseModel);
-		return ResponseEntity.status(HttpStatus.CREATED).body(courseService);
+		return ResponseEntity.status(HttpStatus.CREATED).body(courseModel);
 	}
 	
 	@DeleteMapping("/{courseId}")
@@ -69,7 +69,7 @@ public class CourseController {
  		courseModel.setCourseLevel(courseDto.getCourseLevel());
  		courseModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
  		courseService.save(courseModel); 		
-		return ResponseEntity.status(HttpStatus.OK).body(courseService);
+		return ResponseEntity.status(HttpStatus.OK).body(courseModel);
 	}
 	
 	@GetMapping
