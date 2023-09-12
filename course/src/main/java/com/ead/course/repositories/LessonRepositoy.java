@@ -11,6 +11,6 @@ import com.ead.course.models.LessonModel;
 
 public interface LessonRepositoy extends JpaRepository<LessonModel, UUID> {
 
-	@Query(value = "SELECT * FROM tb_lessons WHERE module_moduleId = :moduleId", nativeQuery = true)
+	@Query(value = "SELECT * FROM tb_lessons WHERE module_module_Id = :moduleId", nativeQuery = true)
 	List<LessonModel> findAllLessonsIntoModule(@Param("moduleId") UUID moduleId);
 }
