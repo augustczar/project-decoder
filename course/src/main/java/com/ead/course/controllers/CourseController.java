@@ -28,7 +28,7 @@ import com.ead.course.services.CourseService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/course")
+@RequestMapping("/courses")
 public class CourseController {
 
 	@Autowired
