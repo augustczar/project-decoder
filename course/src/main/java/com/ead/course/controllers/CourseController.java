@@ -54,7 +54,7 @@ public class CourseController {
  		return ResponseEntity.status(HttpStatus.OK).body("Course deleted successfully!");	
 	}
 	
-	@PutMapping("/courseId")
+	@PutMapping("/{courseId}")
 	public ResponseEntity<Object> updateCourse(@PathVariable(value = "courseId") UUID courseId,
 			@RequestBody @Valid CourseDto courseDto){
 		Optional<CourseModel> courseModelOptional = courseService.findById(courseId);
