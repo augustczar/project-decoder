@@ -28,9 +28,12 @@ import com.ead.authuser.service.UserService;
 import com.ead.authuser.specifications.SpecificationTemplate;
 import com.fasterxml.jackson.annotation.JsonView;
 
+import lombok.extern.log4j.Log4j2;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@Log4j2
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/users")
@@ -67,10 +70,17 @@ public class UserController {
 	@DeleteMapping("/{userId}")
 	public ResponseEntity<Object> deleteUser(@PathVariable(value = "userId") UUID userId){
 		Optional<UserModel> userModelOptional = userService.findById(userId);
+		
+		log.debug("DELETE deleteUser userID recived {}", userId);
+		
 		if(!userModelOptional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
 		}else {
 			userService.delete(userModelOptional.get());
+			
+			log.debug("DELETE updateUser userId recived {}", userId);
+			log.info("User deleted successfully userId {}", userId);
+			
 			return ResponseEntity.status(HttpStatus.OK).body("User deleted success!");
 		}
 	}
@@ -79,6 +89,9 @@ public class UserController {
 	public ResponseEntity<Object> updateUser(@PathVariable(value = "userId") UUID userId, 
 			@RequestBody @Validated(UserDto.UserView.UserPut.class) 
 			@JsonView(UserDto.UserView.UserPut.class) UserDto userDto){
+		
+		log.debug("PUT updateUser userDto recived {}", userDto.toString());
+		
 		Optional<UserModel> userModelOptional = userService.findById(userId);
 		if(!userModelOptional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
@@ -90,6 +103,9 @@ public class UserController {
 			userModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
 			
 			userService.save(userModel);
+			
+			log.debug("PUT updateUser userModel recived {}", userModel.toString());
+			log.info("User update successfully userId {}", userModel.getUserId());
 			
 			return ResponseEntity.status(HttpStatus.OK).body(userModel);
 		}
@@ -104,6 +120,7 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
 		}
 		if(!userModelOptional.get().getPassword().equals(userDto.getOldPassword())) {
+			log.warn("Mismatched old password userId {} ", userDto.getUserId());
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Mismatched old password!");
 		}else {
 			var userModel = userModelOptional.get();

@@ -16,3 +16,15 @@ spring:
         type:
           descriptor:
             sql:trace
+#Configuração para windows terminal padrao de cores            
+  output:
+    ansi:
+      enabled: always
+
+logging:
+  level:
+    '[com.ead]': trace
+    root: info
+    '[org.springframework.web]': debug
+    '[org.hibernate]': info
+    
