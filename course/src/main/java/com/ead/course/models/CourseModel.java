@@ -24,8 +24,10 @@ import com.ead.course.enums.CourseStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -71,4 +73,9 @@ public class CourseModel implements Serializable {
 	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SUBSELECT)
 	private Set<ModuleModel> modules;
+	
+	@ToString.Exclude
+	@JsonProperty(access = Access.READ_WRITE)
+	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+	private Set<CourseUserModel> coursesUsers;
 }
