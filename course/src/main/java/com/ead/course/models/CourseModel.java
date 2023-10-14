@@ -75,7 +75,7 @@ public class CourseModel implements Serializable {
 	private Set<ModuleModel> modules;
 	
 	@ToString.Exclude
-	@JsonProperty(access = Access.READ_WRITE)
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
 	private Set<CourseUserModel> coursesUsers;
 }
