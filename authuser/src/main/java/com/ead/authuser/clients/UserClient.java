@@ -26,9 +26,11 @@ public class UserClient {
 
 	@Autowired
 	RestTemplate restTemplate;
-
+	
 	@Autowired
 	UtilsService utilsService;
+	
+	String REQUEST_RUI = "htp://localhost:8082"; 
 	
 	public Page<CourseDto> getAllCoursesByUser(UUID userId, Pageable pageable){
 		List<CourseDto> searchResult = null;
@@ -48,9 +50,9 @@ public class UserClient {
 					log.debug("Response Number of Elements: {}", searchResult.size());
 			
 		} catch (HttpStatusCodeException e) {
-			log.error("Error reuqest /courses: {}", e);
+			log.error("Error request /courses: {}", e);
 		}
-		log.info("Error reuqest /courses: {}", userId);
+		log.info("Ending request /courses: {}", userId);
 		return new PageImpl<>(searchResult);
 	}
 }
