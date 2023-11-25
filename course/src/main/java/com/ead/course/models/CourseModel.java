@@ -26,10 +26,17 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "TB_COURSES")
@@ -78,4 +85,9 @@ public class CourseModel implements Serializable {
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
 	private Set<CourseUserModel> coursesUsers;
+	
+	//uma outra abordagem para converter os objetos na hora de salvar
+	public CourseUserModel convertToCourseUserModel(UUID userId) {
+		return new CourseUserModel(null, userId, this);
+	}
 }

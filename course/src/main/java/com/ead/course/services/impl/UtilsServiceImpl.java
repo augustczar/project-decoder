@@ -10,10 +10,11 @@ import com.ead.course.services.UtilsService;
 @Service
 public class UtilsServiceImpl implements UtilsService {
 
-	String REQUEST_URI = "http://localhost:8087";
+	//@Value("${ead.api.url.authuser}")
+	//String REQUEST_URI;
 	
-	public String createUrl(UUID courseId, Pageable pageable) {
-		return REQUEST_URI + "/users?courseId=" + courseId + "&page=" + pageable.getPageNumber()+ 
+	public String createUrlGetAllUsersByCourse(UUID courseId, Pageable pageable) {
+		return "/users?courseId=" + courseId + "&page=" + pageable.getPageNumber()+ 
 				"&size=" + pageable.getPageSize() + "&sort=" + pageable.getSort().toString().replaceAll(": ", ",");
 
 	}
