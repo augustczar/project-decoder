@@ -20,3 +20,5 @@
 - Authentication e Authorization com Json Web Token (JWT)
 - Cross Cutting - Authentication e Authorization com JWT em Microservices
 - Observability - Log Aggregation Pattern com Elastic Stack (ELK)
+
+Formação de Especialistas em Microservices Java com Spring ministrado por Michelli Brito
