@@ -90,4 +90,8 @@ public class UserModel extends RepresentationModel<UserModel> implements Seriali
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Set<UserCourseModel> usersCourses;
+	
+	public UserCourseModel convertToUserCourseModel(UUID courseId) {
+		return new UserCourseModel(null, courseId, this);
+	}
 }
