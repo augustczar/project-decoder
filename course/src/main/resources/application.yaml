@@ -31,6 +31,6 @@ logging:
 ead:
   api:
     url:
-      authuser: 'htp://localhost:8087'    
+      authuser: 'http://localhost:8087'    
       
       
