@@ -4,9 +4,6 @@ import java.util.UUID;
 
 import javax.validation.constraints.NotNull;
 
-import com.ead.authuser.enums.CourseLevel;
-import com.ead.authuser.enums.CourseStatus;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
