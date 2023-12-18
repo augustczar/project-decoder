@@ -20,6 +20,8 @@ import lombok.ToString;
 @ToString
 public class CourseDto {
 
+	private UUID courseId;
+	
 	private String name;
 	
 	private String description;
