@@ -67,7 +67,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/{userId}")
-	public ResponseEntity<Object> getOneUser(@PathVariable(value = "userId") UUID userId){
+	public ResponseEntity<Object> getOneUser(@PathVariable UUID userId){
 		Optional<UserModel> userModelOptional = userService.findById(userId);
 		if(!userModelOptional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
@@ -77,7 +77,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/{userId}")
-	public ResponseEntity<Object> deleteUser(@PathVariable(value = "userId") UUID userId){
+	public ResponseEntity<Object> deleteUser(@PathVariable UUID userId){
 		Optional<UserModel> userModelOptional = userService.findById(userId);
 		
 		log.debug("DELETE deleteUser userID recived {}", userId);
@@ -95,7 +95,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/{userId}")
-	public ResponseEntity<Object> updateUser(@PathVariable(value = "userId") UUID userId, 
+	public ResponseEntity<Object> updateUser(@PathVariable UUID userId, 
 			@RequestBody @Validated(UserDto.UserView.UserPut.class) 
 			@JsonView(UserDto.UserView.UserPut.class) UserDto userDto){
 		
@@ -121,7 +121,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/{userId}/password")
-	public ResponseEntity<Object> updatePassword(@PathVariable(value = "userId") UUID userId, 
+	public ResponseEntity<Object> updatePassword(@PathVariable UUID userId, 
 			@RequestBody @Validated(UserDto.UserView.PasswordPut.class) 
 			@JsonView(UserDto.UserView.PasswordPut.class) UserDto userDto){
 		log.debug("PUT updatePassword userDto recived {}", userDto.getUserId());
@@ -146,7 +146,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/{userId}/image")
-	public ResponseEntity<Object> updateImage(@PathVariable(value = "userId") UUID userId, 
+	public ResponseEntity<Object> updateImage(@PathVariable UUID userId, 
 			@RequestBody @Validated(UserDto.UserView.ImagePut.class) 
 			@JsonView(UserDto.UserView.ImagePut.class) UserDto userDto){
 		log.debug("PUT updateImage userDto recived {}", userDto.getUserId());

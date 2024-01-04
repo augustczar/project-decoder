@@ -46,13 +46,13 @@ public class UserCourseController {
 	@GetMapping("/users/{userId}/courses")
 	public ResponseEntity<Page<CourseDto>> getAllCoursesByUser(
 			@PageableDefault(page = 0, size = 10, sort = "courseId", direction = Direction.ASC) Pageable pageable,
-			@PathVariable(value = "userId") UUID userId){
+			@PathVariable UUID userId){
 		
 		return ResponseEntity.status(HttpStatus.OK).body(courseClient.getAllCoursesByUser(userId, pageable));		
 	}
 	
 	@PostMapping("/users/{userId}/courses/subscription")
-	public ResponseEntity<Object> saveSubscriptionUserInCourse(@PathVariable(value = "userId") UUID userId,
+	public ResponseEntity<Object> saveSubscriptionUserInCourse(@PathVariable UUID userId,
 			@RequestBody @Valid UserCourseDto userCourseDto){
 		
 		Optional<UserModel> userModelOptional= userService.findById(userId);
