@@ -50,7 +50,7 @@ public class UserCourseController {
 			@PathVariable UUID userId){
 		
 		if(courseClient.getAllCoursesByUser(userId, pageable).getContent().isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found!");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
 		}	
 		return ResponseEntity.status(HttpStatus.OK).body(courseClient.getAllCoursesByUser(userId, pageable));		
 	}
