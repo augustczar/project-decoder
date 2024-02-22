@@ -1,5 +1,5 @@
 server:
-  port: 8087
+  port: ${SERVER_PORT}
   servlet:
     context-path: '/ead-authuser/'
   
@@ -7,19 +7,16 @@ spring:
   application:
     name: ead-authuser-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/ead-authuser
-    username: admin
-    password: PO_postgres
+    driver-class-name: org.postgresql.Driver
+    url: ${POSTGRE_URL}
+    username: ${POSTGRE_USERNAME}
+    password: ${POSTGRE_PASSWORD}
   jpa:
     show-sql: true
+    database: POSTGRESQL
     hibernate:
       ddl-auto: update
-      dialect: org.hobernate.dialect.PostgreSQLDialect
-    jdbc: 
-        lob.non-contextual-creation: true
-        type:
-          descriptor:
-            sql:trace
+
 #Configuração para windows terminal padrao de cores            
   output:
     ansi:
