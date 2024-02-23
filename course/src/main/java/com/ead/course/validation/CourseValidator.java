@@ -4,17 +4,11 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.web.client.HttpStatusCodeException;
 
-import com.ead.course.clients.AuthUserClient;
 import com.ead.course.dtos.CourseDto;
-import com.ead.course.dtos.UserDto;
-import com.ead.course.enums.UserType;
 
 @Component
 public class CourseValidator implements Validator {
@@ -22,10 +16,7 @@ public class CourseValidator implements Validator {
 	@Autowired
 	@Qualifier("defaultValidator") // Utilizamos está anotação para evitar o conflito devido ao uso do validator do web mvc que ja estamos usando.
 	private Validator validator;
-	
-	@Autowired
-	AuthUserClient authUserClient;
-	
+
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return false;
@@ -41,8 +32,8 @@ public class CourseValidator implements Validator {
 	}
 	
 	private void validateUserInstructor(UUID userInstructor, Errors errors) {
+		/*		
 		ResponseEntity<UserDto> responseUserInstructor;
-		
 		try {
 			responseUserInstructor = authUserClient.getOneUserById(userInstructor);
 			if (responseUserInstructor.getBody().getUserType().equals(UserType.STUDENT)) {
@@ -53,6 +44,7 @@ public class CourseValidator implements Validator {
 				errors.rejectValue("userInstructor", "UserInstructorError", "Instructor not found!");
 			}
 		}
+*/		
 	}
 
 }
