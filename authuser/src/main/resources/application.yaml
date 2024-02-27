@@ -6,16 +6,21 @@ server:
 spring:
   application:
     name: ead-authuser-service
+  
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${POSTGRE_URL}
     username: ${POSTGRE_USERNAME}
     password: ${POSTGRE_PASSWORD}
+  
   jpa:
     show-sql: true
     database: POSTGRESQL
     hibernate:
       ddl-auto: update
+
+  rabbitmq:
+    addresses: 
 
 #Configuração para windows terminal padrao de cores            
   output:

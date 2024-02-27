@@ -17,6 +17,9 @@ spring:
     database: POSTGRESQL
     hibernate:
       ddl-auto: update 
+  
+  rabbitmq:
+    addresses: 
             
 #Configuração para windows terminal padrao de cores            
   output:
