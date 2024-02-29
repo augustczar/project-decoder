@@ -43,12 +43,12 @@ public class UserModel implements Serializable {
 	private String fullName;
 	
 	@Column(nullable = false)
-	private String usersStatus;
+	private String userStatus;
 	
 	@Column(nullable = false)
 	private String userType;
 	
-	@Column(length = 11)
+	@Column(length = 20)
 	private String cpf;
 	
 	@Column
