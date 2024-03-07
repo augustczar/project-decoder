@@ -2,10 +2,7 @@ package com.ead.authuser.dtos;
 
 import java.util.UUID;
 
-import javax.validation.constraints.NotNull;
-
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,14 +10,19 @@ import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-@ToString
-public class UserCourseDto {
+public class UserEventDto {
 
 	private UUID userId;
-	
-	@NotNull
-	private UUID courseId;
+	private String userName;
+	private String email;
+	private String fullName;
+	private String userStatus;
+	private String userType;
+	private String phoneNumber;
+	private String cpf;
+	private String imageUrl;
+	private String actionType;
 }

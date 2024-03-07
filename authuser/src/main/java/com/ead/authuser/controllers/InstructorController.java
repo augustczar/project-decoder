@@ -20,9 +20,6 @@ import com.ead.authuser.enums.UserType;
 import com.ead.authuser.models.UserModel;
 import com.ead.authuser.service.UserService;
 
-import lombok.extern.log4j.Log4j2;
-
-@Log4j2
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/instructors")
@@ -41,7 +38,7 @@ public class InstructorController {
 			userModel.setUserType(UserType.INSTRUCTOR);
 			userModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
 			
-			userService.save(userModel);
+			userService.updateUser(userModel);
 			return ResponseEntity.status(HttpStatus.OK).body(userModel);
 		}
 	}

@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: ${SERVER_PORT}
   servlet:
     context-path: '/ead-course/'
   
@@ -7,19 +7,20 @@ spring:
   application:
     name: ead-course-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/ead-course
-    username: admin
-    password: PO_postgres
+    driver-class-name: org.postgresql.Driver
+    url: ${POSTGRE_URL}
+    username: ${POSTGRE_USERNAME}
+    password: ${POSTGRE_PASSWORD}
+      
   jpa:
     show-sql: true
+    database: POSTGRESQL
     hibernate:
-      ddl-auto: update
-      dialect: org.hobernate.dialect.PostgreSQLDialect
-    jdbc: 
-        lob.non-contextual-creation: true
-        type:
-          descriptor:
-            sql:trace
+      ddl-auto: update 
+  
+  rabbitmq:
+    addresses: amqps://ifbfuizl:YinG-5yJAQDmEjWvNYL8HaVxZZLYvnwS@hawk.rmq.cloudamqp.com/ifbfuizl
+            
 #Configuração para windows terminal padrao de cores            
   output:
     ansi:
@@ -35,7 +36,13 @@ logging:
 ead:
   api:
     url:
-      authuser: 'http://ead-authuser-service/ead-authuser'    
+      authuser: 'http://ead-authuser-service/ead-authuser'
+  broker:
+    exchange:
+      userEventExchange: ead.userevent
+    queue:
+      userEventQueue:
+        name: ead.userevent.ms.course        
 
 eureka:
   client:

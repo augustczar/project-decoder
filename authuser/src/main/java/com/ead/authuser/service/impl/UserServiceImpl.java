@@ -13,9 +13,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.ead.authuser.clients.CourseClient;
-import com.ead.authuser.models.UserCourseModel;
+import com.ead.authuser.enums.ActionType;
 import com.ead.authuser.models.UserModel;
-import com.ead.authuser.repositories.UserCourseRepository;
+import com.ead.authuser.publishers.UserEventPublisher;
 import com.ead.authuser.repositories.UserRepository;
 import com.ead.authuser.service.UserService;
 
@@ -26,10 +26,10 @@ public class UserServiceImpl implements UserService {
 	UserRepository userRepository;
 
 	@Autowired
-	UserCourseRepository userCourseRepository;
+	CourseClient courseClient;
 	
 	@Autowired
-	CourseClient courseClient;
+	UserEventPublisher userEventPublisher;
 	
 	@Override
 	public List<UserModel> findAll() {
@@ -44,21 +44,12 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	@Override
 	public void delete(UserModel userModel) {
-		boolean deleteUserCourseInCourse = false;
-		List<UserCourseModel> userCourseModels = userCourseRepository.findAllUseCourseIntoUser(userModel.getUserId());
-		if(!userCourseModels.isEmpty()) {
-			userCourseRepository.deleteAll(userCourseModels);
-			deleteUserCourseInCourse = true;
-	}
 		userRepository.delete(userModel);
-		if (deleteUserCourseInCourse) {
-			courseClient.deleteUserCourseInCourse(userModel.getUserId());
-		}
 	}
 
 	@Override
-	public void save(UserModel userModel) {
-		userRepository.save(userModel);
+	public UserModel save(UserModel userModel) {
+		return userRepository.save(userModel);
 	}
 
 	@Override
@@ -74,5 +65,33 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Page<UserModel> findAll(Specification<UserModel> spec, Pageable pageable) {
 		return userRepository.findAll(spec, pageable);
+	}
+
+	@Transactional
+	@Override	
+	public UserModel saveUser(UserModel userModel) {
+		userModel = save(userModel);
+		userEventPublisher.publishUserEvent(userModel.convertToUserEventDto(), ActionType.CREATE);
+		return userModel;
+	}
+
+	@Transactional
+	@Override
+	public void deleteUser(UserModel userModel) {
+		delete(userModel);
+		userEventPublisher.publishUserEvent(userModel.convertToUserEventDto(), ActionType.DELETE);
+	}
+
+	@Transactional
+	@Override
+	public UserModel updateUser(UserModel userModel) {
+		userModel = save(userModel);
+		userEventPublisher.publishUserEvent(userModel.convertToUserEventDto(), ActionType.UPDATE);
+		return userModel;
+	}
+
+	@Override
+	public UserModel updatePassword(UserModel userModel) {
+		return save(userModel);
 	}
 }
