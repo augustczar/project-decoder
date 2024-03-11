@@ -12,17 +12,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import com.ead.authuser.dtos.CourseDto;
 import com.ead.authuser.dtos.ResponsePageDto;
 import com.ead.authuser.service.UtilsService;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Component
+@JsonIdentityReference
 public class CourseClient {
 
 	@Autowired
@@ -32,10 +35,13 @@ public class CourseClient {
 	UtilsService utilsService;
 	
 	@Value("${ead.api.url.course}")
-	String REQUEST_URL_COURSE; 
+	String REQUEST_URL_COURSE;
+
+	private List<CourseDto> searchResult = null;
 	
+	@ResponseBody
 	public Page<CourseDto> getAllCoursesByUser(UUID userId, Pageable pageable){
-		List<CourseDto> searchResult = null;
+
 		String url = REQUEST_URL_COURSE + utilsService.createUrlGetAllCoursesByUser(userId, pageable);	
 				
 		log.debug("Request URL: {}", url);
@@ -54,7 +60,7 @@ public class CourseClient {
 		} catch (HttpStatusCodeException e) {
 			log.error("Error request /courses: {}", e);
 		}
-		log.info("Ending request /courses: {}", userId);
+		log.info("Ending request /courses userId: {}", userId);
 		return new PageImpl<>(searchResult);
 	}
 }

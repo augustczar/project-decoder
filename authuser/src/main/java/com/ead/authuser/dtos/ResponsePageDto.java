@@ -7,22 +7,21 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class ResponsePageDto<T> extends PageImpl<T>{
-	
-	private static final long serialVersionUID = 3164356565878357055L;
 
-	@JsonCreator(mode = Mode.PROPERTIES)
+	private static final long serialVersionUID = -4332319401516382425L;
+
+	@JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
 	public ResponsePageDto(@JsonProperty("content") List<T> content,
-						   @JsonProperty("number") int number,
-						   @JsonProperty("size") int size,
+						   @JsonProperty("number") Integer number,
+						   @JsonProperty("size") Integer size,
 						   @JsonProperty("totalElements")Long totalElements,
 						   @JsonProperty("pageable") JsonNode pageable,
 						   @JsonProperty("last") boolean last,
-						   @JsonProperty("totalPages") int totalPages,
+						   @JsonProperty("totalPages") Integer totalPages,
 						   @JsonProperty("sort") JsonNode sort,
 						   @JsonProperty("first") boolean first,
 						   @JsonProperty("empty") boolean empty) {

@@ -5,8 +5,6 @@ import java.time.ZoneId;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,6 +28,8 @@ import com.ead.course.models.ModuleModel;
 import com.ead.course.services.LessonService;
 import com.ead.course.services.ModuleService;
 import com.ead.course.specifications.SpecificationTemplate;
+
+import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)

@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +17,8 @@ import com.ead.authuser.dtos.InstructorDto;
 import com.ead.authuser.enums.UserType;
 import com.ead.authuser.models.UserModel;
 import com.ead.authuser.service.UserService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
