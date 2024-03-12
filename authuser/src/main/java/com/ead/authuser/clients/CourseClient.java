@@ -1,5 +1,6 @@
 package com.ead.authuser.clients;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
@@ -39,7 +39,7 @@ public class CourseClient {
 
 	private List<CourseDto> searchResult = null;
 	
-	@ResponseBody
+	//@Retry(name = "retryInstance", fallbackMethod = "retryFallBack")
 	public Page<CourseDto> getAllCoursesByUser(UUID userId, Pageable pageable){
 
 		String url = REQUEST_URL_COURSE + utilsService.createUrlGetAllCoursesByUser(userId, pageable);	
@@ -61,6 +61,12 @@ public class CourseClient {
 			log.error("Error request /courses: {}", e);
 		}
 		log.info("Ending request /courses userId: {}", userId);
+		return new PageImpl<>(searchResult);
+	}
+	
+	public Page<CourseDto> retryFallBack(UUID userId, Pageable pageable, Throwable t){
+		log.error("Inside retry retryFallback, couse - {}", t.toString());
+		List<CourseDto> searchResult = new ArrayList<>();
 		return new PageImpl<>(searchResult);
 	}
 }
