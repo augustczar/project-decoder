@@ -21,6 +21,7 @@ import com.ead.authuser.dtos.ResponsePageDto;
 import com.ead.authuser.service.UtilsService;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -40,6 +41,7 @@ public class CourseClient {
 	private List<CourseDto> searchResult = null;
 	
 	//@Retry(name = "retryInstance", fallbackMethod = "retryFallBack")
+	@CircuitBreaker(name = "circuitbreakerInstance")
 	public Page<CourseDto> getAllCoursesByUser(UUID userId, Pageable pageable){
 
 		String url = REQUEST_URL_COURSE + utilsService.createUrlGetAllCoursesByUser(userId, pageable);	
@@ -49,8 +51,7 @@ public class CourseClient {
 		
 		try {
 			ParameterizedTypeReference<ResponsePageDto<CourseDto>> 
-			responseType = new ParameterizedTypeReference<ResponsePageDto<CourseDto>>() {
-					};
+			responseType = new ParameterizedTypeReference<ResponsePageDto<CourseDto>>() {};
 					ResponseEntity<ResponsePageDto<CourseDto>> 
 					result = restTemplate.exchange(url, HttpMethod.GET, null, responseType);
 					searchResult = result.getBody().getContent();
@@ -61,6 +62,12 @@ public class CourseClient {
 			log.error("Error request /courses: {}", e);
 		}
 		log.info("Ending request /courses userId: {}", userId);
+		return new PageImpl<>(searchResult);
+	}
+	
+	public Page<CourseDto> circuitBreakerFallBack(UUID userId, Pageable pageable, Throwable t){
+		log.error("Inside circuit Breaker FallBack, couse - {}", t.toString());
+		List<CourseDto> searchResult = new ArrayList<>();
 		return new PageImpl<>(searchResult);
 	}
 	
