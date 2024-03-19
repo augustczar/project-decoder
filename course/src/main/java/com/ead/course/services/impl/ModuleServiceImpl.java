@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +15,8 @@ import com.ead.course.models.ModuleModel;
 import com.ead.course.repositories.LessonRepositoy;
 import com.ead.course.repositories.ModuleRepository;
 import com.ead.course.services.ModuleService;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class ModuleServiceImpl implements ModuleService {

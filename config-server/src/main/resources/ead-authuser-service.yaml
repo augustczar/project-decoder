@@ -6,13 +6,7 @@ server:
 spring:
   application:
     name: ead-authuser-service
-  config:
-    import: 'optional:configserver:'
-  cloud:
-    config:
-      discovery:
-        service-id: ead-config-server  
-   
+  
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${POSTGRE_URL_AUTHUSER}
@@ -47,13 +41,6 @@ ead:
   broker:
     exchange:
       userEvent: ead.userevent
-          
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: 'http://localhost:8761/eureka'
-  instance:
-    hostname: localhost                
 
 resilience4j:
   circuitbreaker:

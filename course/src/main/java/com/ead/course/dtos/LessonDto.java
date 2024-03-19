@@ -1,7 +1,6 @@
 package com.ead.course.dtos;
 
-import javax.validation.constraints.NotBlank;
-
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data

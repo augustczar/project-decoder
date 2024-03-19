@@ -3,8 +3,6 @@ package com.ead.course.controllers;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -25,6 +23,8 @@ import com.ead.course.models.UserModel;
 import com.ead.course.services.CourseService;
 import com.ead.course.services.UserService;
 import com.ead.course.specifications.SpecificationTemplate;
+
+import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)

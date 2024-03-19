@@ -4,15 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -23,6 +14,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -36,8 +35,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Entity
 @Table(name = "TB_USERS")
+@Entity
 public class UserModel extends RepresentationModel<UserModel> implements Serializable {
 
 	private static final long serialVersionUID = 969341758235417006L;
