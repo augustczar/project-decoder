@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT}
+  port: ${SERVER_PORT_COURSE}
   servlet:
     context-path: '/ead-course/'
   
@@ -8,9 +8,9 @@ spring:
     name: ead-course-service
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${POSTGRE_URL}
-    username: ${POSTGRE_USERNAME}
-    password: ${POSTGRE_PASSWORD}
+    url: ${POSTGRE_URL_COURSE}
+    username: ${POSTGRE_USERNAME_COURSE}
+    password: ${POSTGRE_PASSWORD_COURSE}
       
   jpa:
     show-sql: true

@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT}
+  port: ${SERVER_PORT_CONFIG_SERVER}
 
 spring:
   application:
@@ -12,7 +12,7 @@ spring:
         git:
           uri: https://github.com/augustczar/eadconfigserverrepo
           default-label: develop
-          username: ${USER_NAME}
+          username: ${USER_NAME_GIT}
           password: ${ACCESS_TOKEN_GIT}
           
 eureka:
