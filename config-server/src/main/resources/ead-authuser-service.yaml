@@ -12,7 +12,6 @@ spring:
     url: ${POSTGRE_URL_AUTHUSER}
     username: ${POSTGRE_USERNAME_AUTHUSER}
     password: ${POSTGRE_PASSWORD_AUTHUSER}
-  
   jpa:
     show-sql: true
     database: POSTGRESQL
