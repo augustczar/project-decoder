@@ -41,6 +41,19 @@ ead:
   broker:
     exchange:
       userEvent: ead.userevent
+      
+authuser:
+  refreshscope:
+    name: Augusto Cesar
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - refresh
+          - health
+            
 
 resilience4j:
   circuitbreaker:
