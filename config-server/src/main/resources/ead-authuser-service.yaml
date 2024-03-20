@@ -12,7 +12,7 @@ spring:
     url: ${POSTGRE_URL_AUTHUSER}
     username: ${POSTGRE_USERNAME_AUTHUSER}
     password: ${POSTGRE_PASSWORD_AUTHUSER}
-  
+    
   jpa:
     show-sql: true
     database: POSTGRESQL
@@ -41,6 +41,19 @@ ead:
   broker:
     exchange:
       userEvent: ead.userevent
+      
+authuser:
+  refreshscope:
+    name: Augusto Cesar
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - refresh
+          - health
+            
 
 resilience4j:
   circuitbreaker:
