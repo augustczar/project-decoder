@@ -44,7 +44,7 @@ ead:
       
 authuser:
   refreshscope:
-    name: Augusto Cesar
+    name: Authuser
     
 management:
   endpoints:
@@ -54,7 +54,6 @@ management:
           - refresh
           - health
             
-
 resilience4j:
   circuitbreaker:
     instances:

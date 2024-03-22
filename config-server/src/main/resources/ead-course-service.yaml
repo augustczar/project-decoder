@@ -6,13 +6,6 @@ server:
 spring:
   application:
     name: ead-course-service
-  config:
-    import: 'optional:configserver:'
-  cloud:
-    config:
-      discovery:
-        service-id: ead-config-server
-            
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${POSTGRE_URL_COURSE}
@@ -51,6 +44,10 @@ ead:
       userEventQueue:
         name: ead.userevent.ms.course        
 
+authuser:
+  refreshscope:
+    name: Augusto Cesar
+    
 management:
   endpoints:
     web:
@@ -58,12 +55,5 @@ management:
         include:
           - refresh
           - health
-          
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: 'http://localhost:8761/eureka'
-  instance:
-    hostname: localhost
         
       

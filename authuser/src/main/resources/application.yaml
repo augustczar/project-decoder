@@ -47,6 +47,14 @@ ead:
   broker:
     exchange:
       userEvent: ead.userevent
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - refresh
+          - health
           
 eureka:
   client:
