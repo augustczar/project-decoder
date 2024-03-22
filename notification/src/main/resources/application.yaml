@@ -1,11 +1,11 @@
 server:
-  port: ${SERVER_PORT_COURSE}
+  port: ${SERVER_PORT_NOTIFICATION}
   servlet:
-    context-path: '/ead-course/'
+    context-path: '/ead-notification/'
   
 spring:
   application:
-    name: ead-course-service
+    name: ead-notification-service
   config:
     import: 'optional:configserver:'
   cloud:
@@ -15,9 +15,9 @@ spring:
             
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${POSTGRE_URL_COURSE}
-    username: ${POSTGRE_USERNAME_COURSE}
-    password: ${POSTGRE_PASSWORD_COURSE}
+    url: ${POSTGRE_URL_NOTIFICATION}
+    username: ${POSTGRE_USERNAME_NOTIFICATION}
+    password: ${POSTGRE_PASSWORD_NOTIFICATION}
       
   jpa:
     show-sql: true
@@ -28,7 +28,7 @@ spring:
   rabbitmq:
     addresses: amqps://ifbfuizl:YinG-5yJAQDmEjWvNYL8HaVxZZLYvnwS@hawk.rmq.cloudamqp.com/ifbfuizl
             
-#Configuração para windows terminal padrao de cores            
+#Configura��o para windows terminal padrao de cores            
   output:
     ansi:
       enabled: always
@@ -40,17 +40,6 @@ logging:
     '[org.springframework.web]': debug
     '[org.hibernate]': info      
 
-ead:
-  api:
-    url:
-      authuser: 'http://ead-authuser-service/ead-authuser'
-  broker:
-    exchange:
-      userEventExchange: ead.userevent
-    queue:
-      userEventQueue:
-        name: ead.userevent.ms.course        
-
 management:
   endpoints:
     web:
@@ -58,7 +47,6 @@ management:
         include:
           - refresh
           - health
-          
 eureka:
   client:
     serviceUrl:
