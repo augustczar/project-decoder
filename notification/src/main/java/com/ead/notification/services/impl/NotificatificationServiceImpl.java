@@ -9,7 +9,7 @@ import com.ead.notification.services.NotificationService;
 public class NotificatificationServiceImpl implements NotificationService {
 
 	
-	final private NotificationRepository notificationRepository;
+	final NotificationRepository notificationRepository;
 
 	public NotificatificationServiceImpl(NotificationRepository notificationRepository) {
 		this.notificationRepository = notificationRepository;
