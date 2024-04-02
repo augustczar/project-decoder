@@ -15,7 +15,7 @@ public class RabbitmqConfig {
 
 	@Autowired
 	CachingConnectionFactory cachingConnectionFactory;
-	
+
 	@Bean
 	RabbitTemplate rabbitTemplate() {
 		RabbitTemplate template = new RabbitTemplate(cachingConnectionFactory);

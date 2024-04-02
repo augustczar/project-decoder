@@ -36,7 +36,7 @@ public class NotificationModel implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID notification;
+	private UUID notificationId;
 	
 	@Column(nullable = false)
 	private UUID userId;
@@ -56,15 +56,3 @@ public class NotificationModel implements Serializable{
 	private NotificationStatus notificationStatus;
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
