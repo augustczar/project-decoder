@@ -46,7 +46,7 @@ ead:
 
 authuser:
   refreshscope:
-    name: Augusto Cesar
+    name: Course
     
 management:
   endpoints:
