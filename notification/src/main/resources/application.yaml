@@ -50,6 +50,10 @@ ead:
     key:
       notificationCommandKey: ms.notification 
 
+notification:
+  refreshscope:
+    name: Notification
+    
 management:
   endpoints:
     web:
