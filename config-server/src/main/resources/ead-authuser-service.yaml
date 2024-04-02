@@ -6,7 +6,6 @@ server:
 spring:
   application:
     name: ead-authuser-service
-  
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${POSTGRE_URL_AUTHUSER}

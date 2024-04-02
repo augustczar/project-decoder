@@ -6,13 +6,6 @@ server:
 spring:
   application:
     name: ead-notification-service
-  config:
-    import: 'configserver:'
-  cloud:
-    config:
-      discovery:
-        service-id: ead-config-server
-            
   datasource:
     driver-class-name: org.postgresql.Driver
     url: ${POSTGRE_URL_NOTIFICATION}
@@ -28,7 +21,7 @@ spring:
   rabbitmq:
     addresses: amqps://ifbfuizl:YinG-5yJAQDmEjWvNYL8HaVxZZLYvnwS@hawk.rmq.cloudamqp.com/ifbfuizl
             
-#Configura��o para windows terminal padrao de cores            
+#Configuração para windows terminal padrao de cores            
   output:
     ansi:
       enabled: always
@@ -49,7 +42,7 @@ ead:
         name: ead.notificationcommand.ms.notification
     key:
       notificationCommandKey: ms.notification 
-
+      
 notification:
   refreshscope:
     name: Notification
@@ -61,11 +54,3 @@ management:
         include:
           - refresh
           - health
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: 'http://localhost:8761/eureka'
-  instance:
-    hostname: localhost
-        
-      
