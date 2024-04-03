@@ -42,10 +42,6 @@ ead:
         name: ead.notificationcommand.ms.notification
     key:
       notificationCommandKey: ms.notification 
-      
-notification:
-  refreshscope:
-    name: Notification
     
 management:
   endpoints:

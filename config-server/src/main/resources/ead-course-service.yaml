@@ -43,10 +43,6 @@ ead:
     queue:
       userEventQueue:
         name: ead.userevent.ms.course        
-
-authuser:
-  refreshscope:
-    name: Course
     
 management:
   endpoints:
