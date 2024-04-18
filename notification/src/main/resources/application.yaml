@@ -7,11 +7,13 @@ spring:
   application:
     name: ead-notification-service
   config:
-    import: 'optional:configserver:'
+    import: 'configserver:'
   cloud:
     config:
       discovery:
-        service-id: ead-config-server
+        service-id: ead-config-server  
+      username: ${CONFIG_SERVER_USERNAME}
+      password: ${CONFIG_SERVER_PASSWORD}
             
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -61,11 +63,10 @@ management:
         include:
           - refresh
           - health
+
 eureka:
   client:
     serviceUrl:
       defaultZone: 'http://localhost:8761/eureka'
   instance:
-    hostname: localhost
-        
-      
+    hostname: localhost         
