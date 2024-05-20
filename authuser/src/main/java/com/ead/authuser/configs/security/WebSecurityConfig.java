@@ -20,7 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 
 	private static final String[] AUTH_WHITELIST = {
-			"/ead-authuser/auth/**"
+			"/auth/**"
 	};
 	
 	@Value("${ead.serviceRegistry.username}")

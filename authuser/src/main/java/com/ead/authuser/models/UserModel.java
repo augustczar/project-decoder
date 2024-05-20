@@ -2,6 +2,8 @@ package com.ead.authuser.models;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
@@ -13,14 +15,19 @@ import com.ead.authuser.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -82,6 +89,13 @@ public class UserModel extends RepresentationModel<UserModel> implements Seriali
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
 	private LocalDateTime lastUpdateDate;
 
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "TB_USERS_ROLES",
+			joinColumns = @JoinColumn(referencedColumnName = "userId"),
+			inverseJoinColumns = @JoinColumn(referencedColumnName = "roleId"))
+	private Set<RoleModel> roles = new HashSet<>();
+	
 	public UserEventDto convertToUserEventDto() {
 		var userEventDto = new UserEventDto();
 		BeanUtils.copyProperties(this, userEventDto);
