@@ -11,8 +11,7 @@ public class RestTemplateConfig {
 
 	@LoadBalanced
 	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		// TODO Do any additional configuration here
+	RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
 }

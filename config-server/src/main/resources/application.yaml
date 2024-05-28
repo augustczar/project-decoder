@@ -10,12 +10,17 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/augustczar/eadconfigserverrepo
+          uri: https://github.com/augustczar/ead-config-server-repo
           default-label: develop
           username: ${USER_NAME_GIT}
           password: ${ACCESS_TOKEN_GIT}
+          
+            
 
 ead:
+  configServer:
+    username: ${CONFIG_SERVER_USERNAME}
+    password: ${CONFIG_SERVER_PASSWORD}
   serviceRegistry:
     username: ${SERVICE_REGISTRY_USERNAME}
     password: ${SERVICE_REGISTRY_PASSWORD}
