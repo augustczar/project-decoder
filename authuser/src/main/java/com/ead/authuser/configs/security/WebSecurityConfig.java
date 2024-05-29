@@ -6,15 +6,18 @@ import org.springframework.boot.actuate.autoconfigure.security.servlet.Managemen
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.authentication.AuthenticationManagerFactoryBean;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.ead.authuser.configs.security.impl.AuthenticationEntryPointImpl;
 import com.ead.authuser.configs.security.impl.UserDetailsServiceImpl;
@@ -43,18 +46,27 @@ public class WebSecurityConfig {
 	AuthenticationEntryPointImpl authenticationEntryPoint;
 	
 	@Bean
+	AuthenticationJwtFilter authenticationJwtFilter() {
+		return new AuthenticationJwtFilter();
+	}
+	
+	@Bean
 	SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
 		httpSecurity
-			.httpBasic()
+			.exceptionHandling()
 			.authenticationEntryPoint(authenticationEntryPoint)
+			.and()
+			.sessionManagement()
+			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
 			.authorizeHttpRequests()
 			.requestMatchers(AUTH_WHITELIST).permitAll()
-			.requestMatchers(HttpMethod.GET, "/users/**").hasRole("ADMIN")
 			.anyRequest().authenticated()
 			.and()
 			.csrf().disable()
 			.formLogin();
+		httpSecurity.addFilterBefore(authenticationJwtFilter(), UsernamePasswordAuthenticationFilter.class);
+		
 		return httpSecurity.build();
 	}
 
