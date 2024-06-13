@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -69,6 +71,14 @@ public class WebSecurityConfig {
 		
 		return httpSecurity.build();
 	}
+	
+		@Bean
+		RoleHierarchy roleHierarchy() {
+			RoleHierarchyImpl roleHierarchyImpl = new RoleHierarchyImpl();
+			String hierarchy = "ROLE_ADMIN > ROLE_INSTRUCTOR \n ROLE_INSTRUCTOR > ROLE_STUDENT \n ROLE_STUDENT > ROLE_USER";
+			roleHierarchyImpl.setHierarchy(hierarchy);
+			return roleHierarchyImpl;
+		}
 
 /*	
 	public AuthenticationManager authenticationManagerBean() throws Exception {
