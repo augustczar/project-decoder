@@ -1,6 +1,7 @@
 package com.ead.authuser.configs.security;
 
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -28,10 +29,18 @@ public class JwtProvider {
 	private int jwtExpirationMs;
 	
 	public String generateJwt(Authentication authentication) {
-		UserDetails userDetailsPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+		UserDetailsImpl userDetailsPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+		
+		final String roles = userDetailsPrincipal.getAuthorities()
+				.stream()
+				.map(role -> {
+					return role.getAuthority();
+				})
+				.collect(Collectors.joining(","));
 		
 		return Jwts.builder()
-				.setSubject((userDetailsPrincipal.getUsername()))
+				.setSubject((userDetailsPrincipal.getUserId().toString()))
+				.claim("roles", roles)
 				.setIssuedAt(new Date())
 				.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
 				.signWith(SignatureAlgorithm.HS512, jwtSecret)
@@ -39,7 +48,7 @@ public class JwtProvider {
 		
 	}
 	
-	public String getUserNameJwt(String token) {
+	public String getSubjectJwt(String token) {
 		return Jwts.parser().setSigningKey(jwtSecret).build().parseClaimsJws(token).getBody().getSubject();
 	}
 
