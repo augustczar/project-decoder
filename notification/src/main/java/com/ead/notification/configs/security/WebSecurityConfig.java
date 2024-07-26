@@ -42,16 +42,16 @@ public class WebSecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
             .exceptionHandling()
-                .authenticationEntryPoint(authenticationEntryPoint)
+            .authenticationEntryPoint(authenticationEntryPoint)
             .and()
             .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeHttpRequests()
             	//.requestMatchers(HttpMethod.GET, "/ead-notification/users/**/notifications").permitAll()
             	//.requestMatchers(HttpMethod.PUT, "/ead-notification/users/**/notifications").permitAll()            
             	//.requestMatchers(HttpMethod.POST, "/notifications/**").permitAll() // Permitir acesso às rotas de notificações
-            	.anyRequest().authenticated()
+            .anyRequest().authenticated()
             .and()
             .csrf().disable()
             .formLogin().disable();

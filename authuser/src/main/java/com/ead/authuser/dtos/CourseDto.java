@@ -1,13 +1,13 @@
 package com.ead.authuser.dtos;
 
-import java.io.Serializable;
 import java.util.UUID;
 
 import com.ead.authuser.enums.CourseLevel;
 import com.ead.authuser.enums.CourseStatus;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,23 +17,26 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 @ToString
-public class CourseDto implements Serializable{
+public class CourseDto {
 
-	private static final long serialVersionUID = -5931051065711989086L;
-
+	@NotNull
 	private UUID courseId;
 	
+	@NotBlank
 	private String name;
-	
+
+	@NotBlank
 	private String description;
 	
 	private String imageUrl;
 	
+	@NotNull
 	private CourseStatus courseStatus;
 	
+	@NotNull
 	private UUID userInstructor;
 	
+	@NotNull
 	private CourseLevel courseLevel;
 }

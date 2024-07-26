@@ -1,5 +1,6 @@
 package com.ead.course.dtos;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import com.ead.course.enums.CourseLevel;
@@ -18,7 +19,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class CourseDto {
+public class CourseDto implements Serializable{
+
+	private static final long serialVersionUID = 6869066271147026227L;
 
 	@NotBlank
 	private String name;

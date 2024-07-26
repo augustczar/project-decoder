@@ -27,6 +27,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/users")
 public class UserNotificationController {
 
 	private NotificationService notificationService;
@@ -35,8 +36,8 @@ public class UserNotificationController {
 		this.notificationService = notificationService;
 	}
 	
-	//@PreAuthorize("hasAnyRole('STUNDENT')")
-	@GetMapping("/users/{userId}/notifications")
+	@PreAuthorize("hasAnyRole('STUNDENT')")
+	@GetMapping("/{userId}/notifications")
 	public ResponseEntity<Page<NotificationModel>> getAllNotificationsByUser(@PathVariable(value = "userId") UUID userId,
 			@PageableDefault(page = 0, size = 10, sort = "notificationId", direction = Sort.Direction.ASC) Pageable pageable,
 			Authentication autnetication){
@@ -44,8 +45,8 @@ public class UserNotificationController {
 		return ResponseEntity.status(HttpStatus.OK).body(notificationService.findAllNotificationsByUserId(userId, pageable));
 	}
 	
-	//@PreAuthorize("hasAnyRole('STUNDENT')")
-	@PutMapping("/users/{userId}/notifications/{notificationId}")
+	@PreAuthorize("hasAnyRole('STUNDENT')")
+	@PutMapping("/{userId}/notifications/{notificationId}")
 	public ResponseEntity<Object> updateNotificationModel(@PathVariable(value = "userId") UUID userId,
 			@PathVariable(value = "notificationId") UUID notificationId, @RequestBody @Valid NotificationDto notificationDto){
 		

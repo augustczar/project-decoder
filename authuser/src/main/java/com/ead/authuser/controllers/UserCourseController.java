@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ead.authuser.clients.CourseClient;
@@ -22,6 +23,7 @@ import com.ead.authuser.service.UserService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/users")
 public class UserCourseController {
 
 	@Autowired
@@ -30,8 +32,8 @@ public class UserCourseController {
 	@Autowired
 	UserService userService;
 	
-	@PreAuthorize("hasAnyRole('STUDENT')")
-	@GetMapping("/users/{userId}/courses")
+//	@PreAuthorize("hasAnyRole('STUDENT')")
+	@GetMapping("/{userId}/courses")
 	public ResponseEntity<Object> getAllCoursesByUser(
 			@PageableDefault(page = 0, size = 10, sort = "courseId", direction = Direction.ASC) Pageable pageable,
 			@PathVariable(value = "userId") UUID userId,
