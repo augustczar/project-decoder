@@ -39,7 +39,7 @@ public class CourseUserController {
 	@Autowired
 	UserService userService;
 
-//	@PreAuthorize("hasAnyRole('INSTRUCTOR')")
+	@PreAuthorize("hasAnyRole('INSTRUCTOR')")
 	@GetMapping("/{courseId}/users")
 	public ResponseEntity<Object> getAllUsersByCourse(SpecificationTemplate.UserSpec spec,
 			@PageableDefault(page = 0, size = 10, sort = "userId", direction = Direction.ASC) Pageable pageable,

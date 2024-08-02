@@ -35,7 +35,7 @@ public class InstructorController {
 	@Autowired
 	RoleService roleService;
 	
-	//@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping("/subscription")
 	public ResponseEntity<Object> saveSubscriptionInstructor(@RequestBody @Valid InstructorDto instructorDto){
 		Optional<UserModel> userModelOptional = userService.findById(instructorDto.getUserId());

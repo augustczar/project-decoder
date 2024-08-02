@@ -32,7 +32,7 @@ public class UserCourseController {
 	@Autowired
 	UserService userService;
 	
-//	@PreAuthorize("hasAnyRole('STUDENT')")
+	@PreAuthorize("hasAnyRole('STUDENT')")
 	@GetMapping("/{userId}/courses")
 	public ResponseEntity<Object> getAllCoursesByUser(
 			@PageableDefault(page = 0, size = 10, sort = "courseId", direction = Direction.ASC) Pageable pageable,

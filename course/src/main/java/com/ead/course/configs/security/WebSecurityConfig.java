@@ -45,13 +45,9 @@ public class WebSecurityConfig {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeHttpRequests()
-            	//.requestMatchers(HttpMethod.GET, "/ead-notification/users/**/notifications").permitAll()
-            	//.requestMatchers(HttpMethod.PUT, "/ead-notification/users/**/notifications").permitAll()            
-            	//.requestMatchers(HttpMethod.POST, "/notifications/**").permitAll() // Permitir acesso às rotas de notificações
             .anyRequest().authenticated()
             .and()
-            .csrf().disable()
-            .formLogin().disable();
+            .csrf().disable();
 
         httpSecurity.addFilterBefore(authenticationJwtFilter(), UsernamePasswordAuthenticationFilter.class);
 
