@@ -28,7 +28,7 @@ spring:
       ddl-auto: update 
   
   rabbitmq:
-    addresses: amqps://ifbfuizl:YinG-5yJAQDmEjWvNYL8HaVxZZLYvnwS@hawk.rmq.cloudamqp.com/ifbfuizl
+    addresses: ${RABBITMQ_ADDRESSES}
             
 #Configura��o para windows terminal padrao de cores            
   output:
@@ -51,6 +51,12 @@ ead:
         name: ead.notificationcommand.ms.notification
     key:
       notificationCommandKey: ms.notification
+  auth:
+    jwtSecret: XL2bRh34SCmnOEfQB5Dh4YDiFmCUvYpis4H79RSm1Oq7HsjhwFSlyJHPAgMaoEwXdbY2SAHpnR8xdxbSbOapsCTcOlir3zhErnIGa1Lt4EFtvKYXLPRJpZ8gSmc4JSMOAOQvmpNUnfgklKEqXLH6gofevJi3xlEcKQRXkIZROGTQn9uXBdcmTUXXWO4YSTjJalcbsp63BX1IgdgJ4igyajugiwVCpDOELGEusx0HN5VOOnkRA1at63ZalGFhwlyiDhPk3AG1Wgh7AmXfVsBDt36hAha34BUOKeRbxA0QY30UhHQsPIXormGhRfmM3tWr8QKv6VIWmjJwXslx1iEcf46mihJGxfzWnFKGnmFa6vUT53KiclUFY9haKvOiVmqNdkHqGNybSHYSoqh9FOWPmNP5oTGrCcEEV4jOVI5UOtaNLx4yQ4eV2ntUpKaanMHJ63JSnRZrDlOQHQaHkKIUuoEKsodDAHz7m89Kh39DJ7kKQwPtAXCB3rJo4pJKE7gO
+    jwtExpirationMs: 14400000
+  serviceRegistry:
+    username: ${SERVICE_REGISTRY_USERNAME}
+    password: ${SERVICE_REGISTRY_PASSWORD}    
     
 management:
   endpoints:
@@ -63,6 +69,8 @@ management:
 eureka:
   client:
     serviceUrl:
-      defaultZone: 'http://localhost:8761/eureka'
+      defaultZone: 'http://${ead.serviceRegistry.username}:${ead.serviceRegistry.password}@localhost:8761/eureka'
+      #defaultZone: 'http://localhost:8761/eureka'
   instance:
     hostname: localhost         
+    

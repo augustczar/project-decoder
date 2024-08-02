@@ -1,6 +1,9 @@
 package com.ead.authuser.configs.security.impl;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,8 +22,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 		UserModel userModel = userRepository.findByUserName(username)
-				.orElseThrow(() -> new UsernameNotFoundException("User Not Found with username"  + username));
+				.orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: "  + username));
 		return UserDetailsImpl.build(userModel);
 	}
 
+	public UserDetails loadUserById(UUID userId) throws AuthenticationCredentialsNotFoundException {
+		
+		UserModel userModel = userRepository.findById(userId)
+				.orElseThrow(() -> new UsernameNotFoundException("User Not Found with userId: "  + userId));
+		return UserDetailsImpl.build(userModel);
+	}
 }

@@ -14,7 +14,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
  * Utilizar o ObjectMapper quando for necessário a configuração de data global 
  * para utilização do sistema 
  */
-//@Configuration
+@Configuration
 public class DateConfig {
 
 	public static final String DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";

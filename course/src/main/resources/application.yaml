@@ -28,7 +28,9 @@ spring:
       ddl-auto: update 
   
   rabbitmq:
-    addresses: amqps://ifbfuizl:YinG-5yJAQDmEjWvNYL8HaVxZZLYvnwS@hawk.rmq.cloudamqp.com/ifbfuizl
+    addresses: ${RABBITMQ_ADDRESSES}
+    ssl:
+      enabled: true    
             
 #Configuração para windows terminal padrao de cores            
   output:
@@ -49,12 +51,12 @@ ead:
   broker:
     exchange:
       userEventExchange: ead.userevent
-      notificationCommandExchange: ead.notificationcommand
+      #notificationCommandExchange: ead.notificationcommand
     queue:
       userEventQueue:
         name: ead.userevent.ms.course
-    key:
-      notificationCommandKey: ms.notification             
+    #key:
+    #  notificationCommandKey: ms.notification             
 
 management:
   endpoints:
