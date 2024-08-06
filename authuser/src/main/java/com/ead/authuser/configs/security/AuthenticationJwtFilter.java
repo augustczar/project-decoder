@@ -21,11 +21,19 @@ import jakarta.servlet.http.HttpServletResponse;
 public class AuthenticationJwtFilter extends OncePerRequestFilter {
 
 	@Autowired
-	JwtProvider jwtProvider;
+	private JwtProvider jwtProvider;
 	
 	@Autowired
-	UserDetailsServiceImpl userDetailsServiceImpl;
+	private UserDetailsServiceImpl userDetailsServiceImpl;
 
+    public void setJwtProvider(JwtProvider jwtProvider) {
+        this.jwtProvider = jwtProvider;
+    }
+
+    public void setUserDetailsServiceImpl(UserDetailsServiceImpl userDetailsServiceImpl) {
+        this.userDetailsServiceImpl = userDetailsServiceImpl;
+    }
+    
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
@@ -53,5 +61,5 @@ public class AuthenticationJwtFilter extends OncePerRequestFilter {
 			return headerAuth.substring(7, headerAuth.length());
 		}
 		return null;
-	}	
+	}
 }

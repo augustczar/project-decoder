@@ -14,8 +14,6 @@ spring:
           default-label: develop
           username: ${USER_NAME_GIT}
           password: ${ACCESS_TOKEN_GIT}
-          
-            
 
 ead:
   configServer:

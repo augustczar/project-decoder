@@ -6,8 +6,10 @@ server:
 spring:
   application:
     name: ead-authuser-service
+  
   config:
-    import: 'configserver:'
+    import: 'optional:configserver:'
+  
   cloud:
     config:
       discovery:
@@ -29,6 +31,9 @@ spring:
 
   rabbitmq:
     addresses: ${RABBITMQ_ADDRESSES}
+    
+  main:
+    allow-bean-definition-overriding: true  
 
 #Configuração para windows terminal padrao de cores            
   output:
@@ -41,6 +46,10 @@ logging:
     root: info
     '[org.springframework.web]': debug
     '[org.hibernate]': info
+    com:
+      fasterxml:
+        jackson:
+          databind: DEBUG
     
 ead:
   api:

@@ -1,9 +1,11 @@
 package com.ead.authuser.dtos;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import com.ead.authuser.enums.CourseLevel;
 import com.ead.authuser.enums.CourseStatus;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -18,7 +20,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class CourseDto {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class CourseDto implements Serializable{
+
+	private static final long serialVersionUID = -3192227039392885546L;
 
 	@NotNull
 	private UUID courseId;

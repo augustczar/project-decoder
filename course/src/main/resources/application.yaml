@@ -7,7 +7,7 @@ spring:
   application:
     name: ead-course-service
   config:
-    import: 'configserver:'
+    import: 'optional:configserver:'
   cloud:
     config:
       discovery:
