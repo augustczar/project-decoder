@@ -7,7 +7,7 @@ spring:
   application:
     name: ead-course-service
   config:
-    import: 'optional:configserver:'
+    import: 'configserver:'
   cloud:
     config:
       discovery:
@@ -51,12 +51,12 @@ ead:
   broker:
     exchange:
       userEventExchange: ead.userevent
-      #notificationCommandExchange: ead.notificationcommand
+      notificationCommandExchange: ead.notificationcommand
     queue:
       userEventQueue:
         name: ead.userevent.ms.course
-    #key:
-    #  notificationCommandKey: ms.notification             
+    key:
+      notificationCommandKey: ms.notification             
 
 management:
   endpoints:
