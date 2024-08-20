@@ -4,6 +4,8 @@ server:
     context-path: '/ead-notification/'
   
 spring:
+  profiles:
+    active: prod
   application:
     name: ead-notification-service
   config:

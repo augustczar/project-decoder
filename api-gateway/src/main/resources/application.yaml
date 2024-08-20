@@ -2,6 +2,8 @@ server:
   port: ${SERVER_PORT_GATEWAY}
   
 spring:
+  profiles:
+    active: prod
   application:
     name: ead-api-gateway
 
