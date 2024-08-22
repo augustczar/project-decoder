@@ -1,12 +1,6 @@
-server:
-  port: ${SERVER_PORT_GATEWAY}
-  
 spring:
-  profiles:
-    active: dev
-  application:
-    name: ead-api-gateway
-
+  config:
+    import: 'configserver'
   cloud:
     gateway:
       routes:

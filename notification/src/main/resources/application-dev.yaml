@@ -1,8 +1,9 @@
+server:
+  port: ${SERVER_PORT_NOTIFICATION}
+  servlet:
+    context-path: '/ead-notification/'
+  
 spring:
-  profiles:
-    active: dev
-  application:
-    name: ead-notification-service
   config:
     import: 'optional:configserver:'
   cloud:
