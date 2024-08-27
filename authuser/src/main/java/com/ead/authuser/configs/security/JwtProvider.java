@@ -1,5 +1,6 @@
 package com.ead.authuser.configs.security;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,7 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SecurityException;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -32,8 +34,7 @@ public class JwtProvider {
     private int jwtExpirationMs;
 
     private SecretKey getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
-        return Keys.hmacShaKeyFor(keyBytes);
+        return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
     }
 
     public String generateJwt(Authentication authentication) {
@@ -49,7 +50,7 @@ public class JwtProvider {
                 .claim("roles", roles)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS512)
+                .signWith(getSigningKey())
                 .compact();
     }
 
@@ -69,7 +70,7 @@ public class JwtProvider {
                 .build()
                 .parseClaimsJws(authToken);
             return true;
-        } catch (SignatureException e) {
+        } catch (SecurityException e) {
             log.error("Invalid JWT signature: {} ", e.getMessage());
         } catch (MalformedJwtException e) {
             log.error("Invalid JWT token: {} ", e.getMessage());
