@@ -1,32 +1,9 @@
 spring:
   config:
-    import: 'configserver'
+    import: 'optional:configserver:'
   cloud:
-    gateway:
-      routes:
-      - id: authuser-service
-        uri: lb://EAD-AUTHUSER-SERVICE
-        predicates:
-        - Path=/ead-authuser/**
-        
-      - id: course-service
-        uri: lb://EAD-COURSE-SERVICE
-        predicates:
-        - Path=/ead-course/**
-        
-      - id: notification-service
-        uri: lb://EAD-NOTIFICATION-SERVICE
-        predicates:
-        - Path=/ead-notification/**  
-
-ead:
-  serviceRegistry:
-    username: ${SERVICE_REGISTRY_USERNAME}
-    password: ${SERVICE_REGISTRY_PASSWORD}
-    
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: 'http://${ead.serviceRegistry.username}:${ead.serviceRegistry.password}@localhost:8761/eureka'
-  instance:
-    hostname: localhost
+    config:
+      discovery:
+        service-id: ead-config-server
+      username: ${CONFIG_SERVER_USERNAME}
+      password: ${CONFIG_SERVER_PASSWORD}

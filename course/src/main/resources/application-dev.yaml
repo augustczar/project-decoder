@@ -1,3 +1,8 @@
+server:
+  port: ${SERVER_PORT_COURSE}
+  servlet:
+    context-path: '/ead-course/'
+
 spring:
   config:
     import: 'configserver:'
@@ -34,7 +39,7 @@ logging:
   level:
     '[com.ead]': trace
     root: info
-    '[org.springframework.web]': debug
+    '[org.springframework.web]': trace
     '[org.hibernate]': info      
 
 ead:
@@ -44,12 +49,12 @@ ead:
   broker:
     exchange:
       userEventExchange: ead.userevent
-      #notificationCommandExchange: ead.notificationcommand
+      notificationCommandExchange: ead.notificationcommand
     queue:
       userEventQueue:
         name: ead.userevent.ms.course
-    #key:
-    #  notificationCommandKey: ms.notification             
+    key:
+      notificationCommandKey: ms.notification             
 
 management:
   endpoints:
