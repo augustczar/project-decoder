@@ -50,6 +50,7 @@ public class WebSecurityConfig {
 	AuthenticationJwtFilter authenticationJwtFilter() {
 		return new AuthenticationJwtFilter();
 	}
+	
 	@Bean
 	RoleHierarchy roleHierarchy() {
 		RoleHierarchyImpl roleHierarchyImpl = new RoleHierarchyImpl();
