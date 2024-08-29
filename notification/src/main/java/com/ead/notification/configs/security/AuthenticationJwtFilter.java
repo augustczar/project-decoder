@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.ead.notification.configs.security.impl.UserDetailsServiceImpl;
+
 import io.jsonwebtoken.io.IOException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,6 +24,7 @@ public class AuthenticationJwtFilter extends OncePerRequestFilter {
 
 	@Autowired
     private JwtProvider jwtProvider;
+	
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
     

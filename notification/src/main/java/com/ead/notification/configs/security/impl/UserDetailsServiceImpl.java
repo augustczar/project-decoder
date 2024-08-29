@@ -1,4 +1,4 @@
-package com.ead.notification.configs.security;
+package com.ead.notification.configs.security.impl;
 
 import java.util.UUID;
 
