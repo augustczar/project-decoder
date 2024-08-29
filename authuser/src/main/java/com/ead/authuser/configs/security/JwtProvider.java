@@ -1,5 +1,6 @@
 package com.ead.authuser.configs.security;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -14,11 +15,9 @@ import com.ead.authuser.configs.security.impl.UserDetailsImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SecurityException;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -32,8 +31,7 @@ public class JwtProvider {
     private int jwtExpirationMs;
 
     private SecretKey getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
-        return Keys.hmacShaKeyFor(keyBytes);
+        return Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
     }
 
     public String generateJwt(Authentication authentication) {
@@ -45,31 +43,30 @@ public class JwtProvider {
                 .collect(Collectors.joining(","));
 
         return Jwts.builder()
-                .setSubject(userDetailsPrincipal.getUserId().toString())
+                .subject(userDetailsPrincipal.getUserId().toString())
                 .claim("roles", roles)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS512)
+                .issuedAt(new Date())
+                .expiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .signWith(getSigningKey(), Jwts.SIG.HS512)
                 .compact();
     }
 
     public String getSubjectJwt(String token) {
         return Jwts.parser()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
+        		.verifyWith(getSigningKey()).build()
+        	    .parseSignedClaims(token)
+                .getPayload()
                 .getSubject();
     }
 
     public boolean validateJwt(String authToken) {
         try {
             Jwts.parser()
-                .setSigningKey(getSigningKey())
+                .verifyWith(getSigningKey())
                 .build()
-                .parseClaimsJws(authToken);
+                .parseSignedClaims(authToken);
             return true;
-        } catch (SignatureException e) {
+        } catch (SecurityException e) {
             log.error("Invalid JWT signature: {} ", e.getMessage());
         } catch (MalformedJwtException e) {
             log.error("Invalid JWT token: {} ", e.getMessage());

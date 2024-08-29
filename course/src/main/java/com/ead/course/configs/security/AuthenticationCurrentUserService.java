@@ -4,6 +4,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.ead.course.configs.security.impl.UserDetailsImpl;
+
 @Service
 public class AuthenticationCurrentUserService {
 
