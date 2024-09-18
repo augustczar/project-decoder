@@ -1,0 +1,74 @@
+server:
+  port: ${SERVER_PORT_PAYMENT}
+  servlet:
+    context-path: '/ead-payment/'
+
+spring:
+  config:
+    import: 'configserver:'
+  cloud:
+    config:
+      discovery:
+        service-id: ead-config-server
+      username: ${CONFIG_SERVER_USERNAME}
+      password: ${CONFIG_SERVER_PASSWORD}   
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${POSTGRE_URL_PAYMENT}
+    username: ${POSTGRE_USERNAME_PAYMENT}
+    password: ${POSTGRE_PASSWORD_PAYMENT}
+      
+  jpa:
+    show-sql: true
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: update 
+  
+  rabbitmq:
+    addresses: ${RABBITMQ_ADDRESSES}
+    ssl:
+      enabled: true    
+            
+#Configuração para windows terminal padrao de cores            
+  output:
+    ansi:
+      enabled: always
+
+logging:
+  level:
+    '[com.ead]': trace
+    root: info
+    '[org.springframework.web]': trace
+    '[org.hibernate]': info      
+
+ead:
+  broker:
+    exchange:
+      userEventExchange: ead.userevent
+      paymentCommandExchange: ead.paymentcommand
+      paymentEventExchange: ead.paymentevent
+    queue:
+      userEventQueue:
+        name: ead.userevent.ms.payment
+      paymentCommandQueue:
+       name: ead.paymentcommand.ms.payment
+    key:
+      paymentCommandKey: ms.payment
+#  stripe:
+#    secretKey: '{cipher}2babf3947e7f711c5420848759a3bbd13aa78bd71bbc5dd70160d81dcfd1e0bb7ddf94694f90f0e7a68a0accaa49030107181bde46bdc1d22bfb3b9b0df4bc0f851512fb60c234b3e4f3e380dbc1bc2dd1983809401ac928acef169bdfb53597fb789789d6db8b9d57f6487d8b133158a33a3a5e1353571ad075cd4c98a43afe'
+      
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - refresh
+          - health
+          
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: 'http://localhost:8761/eureka'
+  instance:
+    hostname: localhost
