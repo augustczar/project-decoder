@@ -6,10 +6,15 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +26,7 @@ import com.ead.payment.models.PaymentModel;
 import com.ead.payment.models.UserModel;
 import com.ead.payment.services.PaymentService;
 import com.ead.payment.services.UserService;
+import com.ead.payment.specifications.SpecificationTamplate;
 
 import jakarta.validation.Valid;
 
@@ -54,8 +60,32 @@ public class PaymentController {
 		}
 				
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(
-				paymentService.requestPayment(paymentRequestDto, userModelOptional.get()));
+				paymentService.requestPayment(paymentRequestDto, userModelOptional.get()));	
+	}
+	
+	@PreAuthorize("hasAnyRole('USER')")
+	@GetMapping("/users/{userId}/payments")
+	public ResponseEntity<Page<PaymentModel>> getAllPayments(@PathVariable(value = "userId") UUID userId, 
+			SpecificationTamplate.PaymentSpec spec, @PageableDefault(page = 0, size = 10, sort = "paymentId", 
+			direction = Direction.DESC) Pageable pageable){
+				
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(paymentService.findAllByUser(SpecificationTamplate.paymentUserId(userId).and(spec), pageable));		
 		
 	}
+	
+	@PreAuthorize("hasAnyRole('USER')")
+	@GetMapping("/users/{userId}/payments/{paymentId}")
+	public ResponseEntity<Object> getOnePayment(@PathVariable(value = "userId") UUID userId, 
+			@PathVariable(value = "paymentId") UUID paymentId){
+		
+		Optional<PaymentModel> paymentModelOptional = paymentService.findPaymentByUser(userId, paymentId);
+		if(paymentModelOptional.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Payment not found for this user!");
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).body(paymentModelOptional.get());
+	}
+	
 }
 
