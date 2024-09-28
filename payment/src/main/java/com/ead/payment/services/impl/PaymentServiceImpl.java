@@ -3,9 +3,13 @@ package com.ead.payment.services.impl;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.ead.payment.dtos.PaymentRequestDto;
@@ -51,7 +55,7 @@ public class PaymentServiceImpl implements PaymentService {
 		paymentModel.setPaymentControl(PaymentControl.REQUESTED);
 		paymentModel.setPaymentRequestDate(LocalDateTime.now(ZoneId.of("UTC")));
 		paymentModel.setPaymentExpirationDate(LocalDateTime.now(ZoneId.of("UTC")).plusDays(30));
-		paymentModel.setLastDigitsCreditCatd(paymentRequestDto.getCreditCardNumber()
+		paymentModel.setLastDigitsCreditCard(paymentRequestDto.getCreditCardNumber()
 				.substring(paymentRequestDto.getCreditCardNumber().length() - 4));
 		paymentModel.setValuePaid(paymentRequestDto.getValuePaid());
 		paymentModel.setUser(userModel);
@@ -66,6 +70,16 @@ public class PaymentServiceImpl implements PaymentService {
 	public Optional<PaymentModel> findLastPaymentByUser(UserModel userModel) {
 		
 		return paymentRepository.findTopByUserOrderByPaymentRequestDateDesc(userModel);
+	}
+
+	@Override
+	public Page<PaymentModel> findAllByUser(Specification<PaymentModel> spec, Pageable pageable) {
+		return paymentRepository.findAll(spec, pageable);
+	}
+
+	@Override
+	public Optional<PaymentModel> findPaymentByUser(UUID userId, UUID paymentId) {
+		return paymentRepository.findByUserId(userId, paymentId);
 	}
 	
 	

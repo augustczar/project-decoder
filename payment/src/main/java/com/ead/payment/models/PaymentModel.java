@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.ead.payment.enums.PaymentControl;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -57,7 +58,7 @@ public class PaymentModel  implements Serializable{
 	private LocalDateTime paymentExpirationDate;
 	
 	@Column(nullable = false, length = 4)
-	private String lastDigitsCreditCatd;
+	private String lastDigitsCreditCard;
 	
 	@Column(nullable = false)
 	private BigDecimal valuePaid;
