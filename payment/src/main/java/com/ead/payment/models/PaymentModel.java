@@ -49,12 +49,15 @@ public class PaymentModel  implements Serializable{
 	private PaymentControl paymentControl;
 	
 	@Column(nullable = false)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
 	private LocalDateTime paymentRequestDate;
 	
 	@Column
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
 	private LocalDateTime paymentCompletionDate;
 	
 	@Column(nullable = false)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
 	private LocalDateTime paymentExpirationDate;
 	
 	@Column(nullable = false, length = 4)
