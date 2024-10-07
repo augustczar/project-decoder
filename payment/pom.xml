@@ -107,6 +107,14 @@
 		    <artifactId>jaxb-runtime</artifactId>
 		    <version>4.0.5</version>
 		</dependency>
+		
+		<!-- Integração com a Plataforma de Pagamento Stripe -->
+		<!-- https://docs.stripe.com/api?lang=java -->
+		<dependency>
+		  <groupId>com.stripe</groupId>
+		  <artifactId>stripe-java</artifactId>
+		  <version>27.1.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.postgresql</groupId>
